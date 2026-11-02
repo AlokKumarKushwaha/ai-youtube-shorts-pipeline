@@ -1,0 +1,22 @@
+# Secrets & Tokens (CRITICAL: Do not commit)
+client_secret.json
+*.pickle
+youtube_token.pickle
+.env
+*.env
+
+# Output & Temp folders
+output/
+test_output/
+*.mp4
+*.wav
+*.mp3
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+
+# Processed news cache
+processed_news.json
