@@ -1,82 +1,129 @@
 # 🎬 AI Automated YouTube Shorts Generator
 
-यह एक पूर्णतः स्वचालित (Fully Automated) Python पाइपलाइन है जो ताज़ा खबरों (Breaking News) को डिटेक्ट करके बिना किसी इंसानी दखल के आकर्षक हिंदी YouTube Shorts वीडियो (.mp4) तैयार करती है।
+A fully automated, end-to-end Python pipeline that detects trending breaking news, crafts viral YouTube Shorts scripts, synthesizes natural neural voiceovers, composes high-definition 9:16 vertical videos with TV newsroom studio visuals & dynamic subtitles, and automatically publishes them directly to your YouTube channel.
 
 ---
 
-## ⚡ मुख्य विशेषताएँ (Features)
+## ✨ Features
 
-1. **ताज़ा ख़बरें (Latest News Ingestion):** Google News RSS से बिना किसी API Key के रियल-टाइम हिंदी व ट्रेंडिंग खबरें निकालना।
-2. **AI स्क्रिप्ट राइटर (Shorts Scriptwriting):** Google Gemini के ज़रिए 35-45 सेकंड की हाई-रिटेंशन हिंदी स्क्रिप्ट, कैची हूक और सीन-वाइज़ विज़ुअल प्रॉम्प्ट्स।
-3. **नेचुरल वॉइसओवर (Edge-TTS):** Microsoft Edge की हाई-डेफिनिशन प्राकृतिक भारतीय आवाज़ें (`hi-IN-MadhurNeural` - पुरुष / `hi-IN-SwaraNeural` - महिला) बिल्कुल मुफ्त।
-4. **9:16 AI विज़ुअल्स (Pollinations AI):** हर सीन के लिए 1080x1920 वर्टिकल AI इमेजेज़।
-5. **मोशन और सबटाइटल्स (FFmpeg):** केन-बर्न्स ज़ूम इफ़ेक्ट (हल्का मोशन) और स्क्रीन पर बोल्ड, हाई-विज़िबिलिटी हिंदी सबटाइटल्स।
-6. **YouTube Auto-Upload:** YouTube Data API v3 के ज़रिए डायरेक्ट शेड्यूल या प्राइवेट/पब्लिक अपलोड।
+- **🌐 Automated News Ingestion:** Fetches real-time breaking news across multiple categories (Tech, World, Business, Sports, Entertainment) via Google News RSS feeds with smart deduplication.
+- **✍️ AI Scriptwriter:** Generates 35–45 second high-retention Shorts scripts with punchy opening hooks and scene-by-scene visual descriptions using Google Gemini.
+- **🎙️ Neural Voiceover (Edge-TTS):** High-definition, human-like voice synthesis using Microsoft Edge neural voices (`hi-IN-MadhurNeural` for male, `hi-IN-SwaraNeural` for female) with exact word and sentence boundary timing.
+- **📺 TV Newsroom Studio Layout:** Professional 1080x1920 broadcast layout featuring:
+  - Studio news desk with anchor persona and microphone.
+  - Digital LED video wall screen showcasing authentic, high-resolution topic imagery.
+  - Dynamic Breaking News lower-third ticker and channel branding.
+- **💬 Auto-Styled Subtitles:** High-contrast, center-aligned dynamic subtitles burned directly into the video stream using FFmpeg.
+- **🚀 Hands-Free YouTube Publishing:** Direct, resumable video uploading via YouTube Data API v3 with automated titles, descriptions, and hashtags (`#Shorts`, `#News`, `#Trending`).
+- **⏰ 24/7 Autopilot Mode:** Built-in scheduling and loop support to automatically post new videos every few hours without manual intervention.
 
 ---
 
-## 🚀 Quick Start (कैसे चलाएं)
+## 📁 Project Structure
 
-### 1. डायरेक्टरी में जाएँ:
-```powershell
-cd C:\Users\v9919\.gemini\antigravity\scratch\ai_shorts_pipeline
+```
+ai-youtube-shorts-pipeline/
+├── config.py             # System configuration, paths, video specs & voice settings
+├── news_fetcher.py       # Google News RSS fetcher with deduplication
+├── script_generator.py   # Gemini AI script & scene prompt generator
+├── voice_generator.py    # Edge-TTS voiceover synthesizer with timestamp tracking
+├── visual_generator.py   # Multi-tier HD photo search (Bing / Wikimedia / AI)
+├── studio_compositor.py  # TV Newsroom Studio frame compositor
+├── video_composer.py     # FFmpeg video assembler & subtitle burner
+├── youtube_uploader.py   # YouTube Data API v3 OAuth2 automated uploader
+├── setup_youtube.py      # Interactive one-time YouTube OAuth setup wizard
+├── main.py               # Main CLI orchestrator
+├── Login_YouTube.bat     # 1-Click desktop YouTube login wizard
+├── Start_Auto_YouTube.bat# 1-Click 24/7 background autopilot loop
+└── requirements.txt      # Python dependencies
 ```
 
-### 2. कोई भी शॉर्ट्स वीडियो जनरेट करें:
+---
 
-* **Tech कैटेगरी की ताज़ा खबर पर वीडियो बनाएँ:**
-  ```powershell
+## 🚀 Quick Start
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/AlokKumarKushwaha/ai-youtube-shorts-pipeline.git
+cd ai-youtube-shorts-pipeline
+```
+
+### 2. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Generate a Short Video
+
+- **Latest Technology News:**
+  ```bash
   python main.py --category tech
   ```
 
-* **World News (अंतर्राष्ट्रीय खबर) पर बनाएँ:**
-  ```powershell
+- **International / World News:**
+  ```bash
   python main.py --category world
   ```
 
-* **किसी खास टॉपिक पर बनाएँ (जैसे ISRO, AI, क्रिकेट, आदि):**
-  ```powershell
-  python main.py --topic "ISRO Space Mission"
+- **Custom Topic (e.g. Space, AI, Sports):**
+  ```bash
+  python main.py --topic "ISRO Moon Mission"
   ```
 
-* **महिला आवाज़ (Female Voice) के साथ बनाएँ:**
-  ```powershell
-  python main.py --category tech --voice hi-IN-SwaraNeural
+- **With Female Anchor & Voice:**
+  ```bash
+  python main.py --category tech --anchor female --voice hi-IN-SwaraNeural
   ```
 
-* **सीधे YouTube पर अपलोड करें:**
-  ```powershell
+- **Generate and Auto-Upload to YouTube:**
+  ```bash
   python main.py --category tech --upload
   ```
 
 ---
 
-## 🔑 Configuration & API Keys (वैकल्पिक / Optional)
+## 🔑 YouTube Auto-Upload Setup (One-Time)
 
-1. **Gemini API Key (बेहतरीन स्क्रिप्ट के लिए):**
-   * अगर आप Gemini से खुद कस्टमाइज्ड स्क्रिप्ट चाहते हैं, तो Windows PowerShell में अपना की सेट करें:
-     ```powershell
-     $env:GEMINI_API_KEY="your_gemini_api_key_here"
-     ```
-   * *नोट:* यदि आप API Key नहीं डालते हैं, तो भी सिस्टम में लगा **स्मार्ट टेम्पलेट जनरेटर** काम करेगा और वीडियो तैयार कर देगा!
-
-2. **YouTube Auto-Upload (`client_secret.json`):**
-   * [Google Cloud Console](https://console.cloud.google.com/) में जाएँ।
-   * **YouTube Data API v3** सक्षम (Enable) करें।
-   * **OAuth 2.0 Client ID** (Desktop Application) बनाएँ और JSON डाउनलोड करें।
-   * उस फ़ाइल का नाम `client_secret.json` रखकर इसी फ़ोल्डर में डाल दें।
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2. Enable the **YouTube Data API v3**.
+3. Navigate to **Credentials** > **Create Credentials** > **OAuth Client ID**:
+   - Application Type: **Desktop app**
+   - Click **Create** and click **Download JSON**.
+4. Rename the downloaded file to `client_secret.json` and place it in the project root folder.
+5. Run the authentication wizard:
+   ```bash
+   python setup_youtube.py
+   ```
+   *Your browser will open asking you to sign in with your YouTube channel account and grant upload permissions. Once authorized, the credentials are permanently cached in `youtube_token.pickle`.*
 
 ---
 
-## ⏰ रोज़ाना ऑटोमेशन (Daily Hands-Free Automation)
+## 🤖 24/7 Autopilot Mode
 
-आप Windows Task Scheduler या एक लूप स्क्रिप्ट के ज़रिए इसे हर 4 घंटे में ऑटोमैटिक रन कर सकते हैं:
+To continuously generate and post fresh breaking news videos every 4 hours automatically:
 
-```powershell
-# auto_runner.ps1
-while ($true) {
-    python main.py --category tech
-    Write-Host "Waiting 4 hours for next news cycle..."
-    Start-Sleep -Seconds 14400
-}
-```
+- **Windows 1-Click:** Double-click `Start_Auto_YouTube.bat`.
+- **PowerShell / Terminal:**
+  ```powershell
+  while ($true) {
+      python main.py --category tech --upload
+      Write-Host "Waiting 4 hours for next news cycle..."
+      Start-Sleep -Seconds 14400
+  }
+  ```
+
+---
+
+## ⚙️ Environment Variables (Optional)
+
+| Variable | Description | Default |
+| :--- | :--- | :--- |
+| `GEMINI_API_KEY` | Google Gemini API key for advanced scriptwriting | Smart template fallback if unset |
+| `TTS_VOICE` | Default Edge-TTS voice model | `hi-IN-MadhurNeural` |
+| `YOUTUBE_PRIVACY` | Upload status (`public`, `unlisted`, `private`) | `public` |
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - feel free to customize and expand it for your own automated channels.
